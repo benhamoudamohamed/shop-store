@@ -1,0 +1,12 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.buttonUser {
+  margin-right: 2%;
+}
+
+@media screen and (max-width: 600px) {
+  .buttonUser {
+    margin-right: 5%;
+  }
+}

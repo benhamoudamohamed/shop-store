@@ -1,0 +1,32 @@
+<app-spinner *ngIf="loadingSpinner === true"></app-spinner>
+
+<div *ngIf="loadingSpinner === false; coupon">
+  <nb-card>
+    <nb-card-body>
+      <table class="tableStyle">
+        <tr>
+          <th>Code</th>
+          <th>Discount</th>
+          <th>Users Limit</th>
+          <th>Expired</th>
+          <th>Created Date</th>
+        <tr>
+          <td>{{ coupon.code }}</td>
+          <td>{{ coupon.discount }}</td>
+          <td>{{ coupon.userLimit }}</td>
+          <td>{{ coupon.expired }}</td>
+          <td>{{ coupon.created | date }}</td>
+        </tr>
+      </table>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton shape="rectangle" outline status="success" size="medium" (click)="update(coupon.id)"><nb-icon icon="edit-2-outline"></nb-icon></button>
+      <button nbButton shape="rectangle" outline status="success" size="medium" (click)="delete(coupon.id)"><nb-icon icon="trash-2-outline"></nb-icon></button>
+      <button nbButton shape="rectangle" outline status="success" size="medium" (click)="downloadQRCode()">QRCode<nb-icon icon="cloud-download-outline"></nb-icon></button>
+    </nb-card-footer>
+
+    <div *ngIf="coupon.expired === false">
+      <qrcode [title]="'salut'" [cssClass]="'coolQRCode'" [qrdata]="qrdata" [width]="128" [elementType]="'url'" [errorCorrectionLevel]="'H'"></qrcode>
+    </div>
+  </nb-card>
+</div>

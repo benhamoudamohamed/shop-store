@@ -1,0 +1,86 @@
+.tableStyle {
+  width: 80%;
+  margin: 5% 10%
+}
+.table-header {
+  margin: 2% 0%;
+}
+
+.table-header:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.table-header input {
+  float: left;
+  width: 25%;
+}
+.table-header button:last-child {
+  float: right;
+  width: 25%;
+}
+
+table th, table tr, table td {
+  text-align: center;
+  border-color: antiquewhite;
+}
+
+.nb-column-name {
+  width: 100%;
+}
+
+.pagination {
+  max-width: 550px;
+  margin: auto;
+}
+h2 {
+  text-align:  center;
+}
+
+
+@media screen and (max-width: 600px) {
+  .nb-column-clientName {
+    width: 25%;
+  }
+  .nb-column-phone {
+    width: 25%;
+  }
+  .nb-column-grandTotal {
+    width: 20%;
+  }
+  .nb-column-id {
+    width: 15%;
+  }
+  .nb-column-view {
+    width: 20%;
+  }
+  .tableStyle {
+    width: 100%;
+    margin: 0% 0%;
+  }
+  * {
+    font-size: 9px;
+  }
+  .table-header input {
+    width: 50%;
+  }
+  .pagination {
+    width: 100%;
+    text-align: center;
+  }
+}
+@media screen and (min-width: 600px) {
+  .nb-column-clientName {
+    width: 40%;
+  }
+  .nb-column-phone {
+    width: 20%;
+  }
+  .nb-column-grandTotal {
+    width: 20%;
+  }
+  .nb-column-id, .nb-column-view {
+    width: 10%;
+  }
+}

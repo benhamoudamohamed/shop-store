@@ -1,0 +1,35 @@
+<nb-layout>
+  <nb-layout-column>
+    <div class="centerElement">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div>
+          <input nbInput fullWidth shape="round" required id="email" type="text" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+          <label for="email">Email <span aria-hidden="true">*</span></label>
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+          </div>
+        </div>
+
+        <div>
+          <input nbInput fullWidth shape="round" required id="password" type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+          <label for="password">Password <span aria-hidden="true">*</span></label>
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>
+      </div>
+
+      <div class="invalid-feedback">
+        <span> {{ queryError }} </span>
+      </div>
+
+        <button [nbSpinner]="loadingSpinner" nbSpinnerSize="medium" nbSpinnerStatus="danger" nbButton shape="round" size="medium" status="success" type="submit" [disabled]="form.invalid">
+          <span *ngIf="loadingSpinner === false">Login</span>
+          <span *ngIf="loadingSpinner === true" [nbSpinner]="loadingSpinner">Loading...</span>
+        </button>
+      </form>
+      <section class="another-action" aria-label="Register">
+        <a class="text-link" [routerLink]="['/user/reset']">Forgot password?</a>
+      </section>
+    </div>
+  </nb-layout-column>
+</nb-layout>

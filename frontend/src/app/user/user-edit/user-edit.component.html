@@ -1,0 +1,51 @@
+<div class="centerElement">
+  <h3 class="titlecenter">{{this.title}}</h3>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div>
+      <input nbInput fullWidth shape="round" required id="firstname" type="text" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }">
+      <label for="firstname">First Name <span aria-hidden="true">*</span></label>
+      <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+        <div *ngIf="f.firstname.errors.required">Firstname is required</div>
+      </div>
+    </div>
+
+    <div>
+      <input nbInput fullWidth shape="round" required id="lastname" type="text" formControlName="lastname" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }">
+      <label for="lastname">Last Name <span aria-hidden="true">*</span></label>
+      <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+        <div *ngIf="f.lastname.errors.required">lastname is required</div>
+      </div>
+    </div>
+
+    <div >
+      <input nbInput fullWidth shape="round" required id="password" type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+      <label for="password">Password <span aria-hidden="true">*</span></label>
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">Password is required</div>
+      </div>
+    </div>
+
+    <div>
+      <input [readonly]="id" nbInput fullWidth shape="round" required id="email" type="text" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+      <label for="email">Email <span aria-hidden="true">*</span></label>
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">Email is required</div>
+      </div>
+    </div>
+
+    <div class="topMargin meduimwidh selectStyle">
+      <ng-select class="ng-select" formControlName="userRole" name="userRoles" notFoundText="No Match" bindValue="id" bindLabel="value" [hideSelected]="true" [multiple]="false">
+        <ng-option *ngFor="let role of userRoles | keyvalue" [value]="role.value">{{role.value}}</ng-option>
+      </ng-select>
+    </div>
+
+    <div class="invalid-feedback">
+      <span> {{ queryError }} </span>
+    </div>
+    <button [nbSpinner]="loadingSpinner" nbSpinnerSize="medium" nbSpinnerStatus="danger" nbButton shape="round" size="medium" status="success" type="submit" [disabled]="form.invalid">
+      <span *ngIf="loadingSpinner === false">Save</span>
+      <span *ngIf="loadingSpinner === true" [nbSpinner]="loadingSpinner">Loading...</span>
+    </button>
+  </form>
+</div>
