@@ -1,0 +1,7 @@
+<swiper class="swiperStyle" effect="fade" [autoplay]="true" [loop]="true" [pagination]="{ clickable: true }" [navigation]="true" class="mySwiper">
+  <ng-template swiperSlide *ngFor="let image of images">
+    <source media="(max-width: {{ screen_md }})" [attr.defaultImage]="defaultImage" [attr.lazyLoad]="image.medium"/>
+    <source media="(min-width: {{ screen_lg }})" [attr.defaultImage]="defaultImage" [attr.lazyLoad]="image.large"/>
+    <img [defaultImage]="defaultImage" [lazyLoad]="image.medium" [useSrcset]="true"/>
+  </ng-template>
+</swiper>

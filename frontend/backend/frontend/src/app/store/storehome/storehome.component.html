@@ -1,0 +1,68 @@
+<nb-layout>
+  <nb-layout-header fixed>
+    <img width="70" height="70" src="assets/logo.png" alt="logo">
+
+    <span class="flex-item button-responsive"></span>
+
+    <button nbButton ghost class="buttonright button-responsive" [nbContextMenu]="responsiveitemlists" nbContextMenuPlacement="bottom" nbContextMenuTrigger="click">
+      <nb-icon icon="menu-outline"></nb-icon>
+    </button>
+
+    <nb-actions class="left menu-responsive">
+      <nb-action [routerLink]="['']">Home</nb-action>
+      <nb-action class="profile" [nbContextMenu]="items" nbContextMenuPlacement="bottom" nbContextMenuTrigger="click" nbContextMenuAdjustment="counterclockwise">Shop<nb-icon icon="arrow-ios-downward-outline"></nb-icon></nb-action>
+      <nb-action [routerLink]="['about']">About</nb-action>
+      <nb-action [routerLink]="['contact']">Contact</nb-action>
+    </nb-actions>
+
+    <span class="example-spacer"></span>
+
+    <nb-actions class="left">
+      <nb-action [routerLink]="['cart']"><nb-icon icon="shopping-cart-outline"></nb-icon><nb-badge [text]="cartItem" status="danger" position="top right"></nb-badge></nb-action>
+    </nb-actions>
+  </nb-layout-header>
+
+  <nb-layout-column class="colored-column-basic">
+    <router-outlet></router-outlet>
+
+    <div class="footer">
+      <div class="flex-item-left">
+        <h5>Links</h5>
+        <nb-menu style="text-align: left;" [items]="responsiveitemlists" autoCollapse="true"></nb-menu>
+      </div>
+
+      <div class="flex-item-right">
+        <h5>Follow us</h5>
+        <a style="margin: 0 5px;" href="https://www.facebook.com/"><img src="../../../assets/facebook.png"/></a>
+        <a href="https://www.instagram.com/"><img src="../../../assets/instagram.png"/></a>
+      </div>
+
+      <div class="flex-item-center">
+        <h5>Contact Information</h5>
+        <div class="container">
+          <div>
+            <div class="flex-inner">
+              <p><nb-icon icon="pin-outline"></nb-icon>: </p>
+              <p>Taha Hussein 8011, Dar Chaabene, Nabeul</p>
+            </div>
+            <div class="flex-inner">
+              <p><nb-icon icon="phone-call-outline"></nb-icon>: </p>
+              <p>54 38 38 37 / 25 49 77 27</p>
+            </div>
+            <div class="flex-inner">
+              <p><nb-icon icon="email-outline"></nb-icon>: </p>
+              <p>contact@artyclic.com</p>
+            </div>
+            <div class="flex-inner">
+              <p><nb-icon icon="clock-outline"></nb-icon>: </p>
+              <p>Working Hours 8am-5pm</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-layout-column>
+  <nb-layout-footer>
+    <p class="footer-inner">Copyright © {{ date | date: 'y' }} Artyclic, Inc. All Rights Reserved ®</p>
+  </nb-layout-footer>
+</nb-layout>

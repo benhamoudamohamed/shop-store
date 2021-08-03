@@ -1,0 +1,34 @@
+<app-spinner *ngIf="loadingSpinner === true"></app-spinner>
+
+<div *ngIf="loadingSpinner === false; product">
+  <nb-card>
+    <nb-card-header>
+      <img width="100" height="100" src="{{product.fileURL}}" alt="{{product.fileName}}">
+    </nb-card-header>
+    <nb-card-body>
+      <table class="tableStyle">
+        <tr>
+          <th>Name</th>
+          <th>productCode</th>
+          <th>price</th>
+          <th>isFavorite</th>
+          <th>isAvailable</th>
+          <th>category</th>
+          <th>Created Date</th>
+        <tr>
+          <td>{{ product.name }}</td>
+          <td>{{ product.productCode }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.isFavorite }}</td>
+          <td>{{ product.isAvailable }}</td>
+          <td>{{ product.category.name }}</td>
+          <td>{{ product.created | date }}</td>
+        </tr>
+      </table>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton shape="rectangle" outline status="success" size="large" (click)="update(product.id)"><nb-icon icon="edit-2-outline"></nb-icon></button>
+      <button nbButton shape="rectangle" outline status="success" size="large" (click)="delete(product.id)"><nb-icon icon="trash-2-outline"></nb-icon></button>
+    </nb-card-footer>
+  </nb-card>
+</div>

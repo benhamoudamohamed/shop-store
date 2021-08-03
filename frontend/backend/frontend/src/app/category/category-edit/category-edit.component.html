@@ -1,0 +1,62 @@
+<div class="centerElement">
+  <h3 class="titlecenter">{{this.title}}</h3>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div>
+      <input accept="image/x-png, image/jpeg, image/jpg" nbInput fullWidth shape="round" id="file" type="file" formControlName="file" (change)="onFileSecelected($event)" [ngClass]="{ 'is-invalid': submitted && f.file.errors }">
+      <label for="file">Image Medium Quality <span aria-hidden="true">(png, jpeg, jpg)</span></label>
+      <div *ngIf="submitted && f.file.errors" class="invalid-feedback">
+        <div *ngIf="f.file.errors.required">Image is required</div>
+      </div>
+    </div>
+
+    <div>
+      <input accept="image/x-png, image/jpeg, image/jpg" nbInput fullWidth shape="round" id="file_low" type="file" formControlName="file_low" (change)="onFileSecelectedLow($event)" [ngClass]="{ 'is-invalid': submitted && f.file_low.errors }">
+      <label for="file_low">Image Low Quality <span aria-hidden="true">(png, jpeg, jpg)</span></label>
+      <div *ngIf="submitted && f.file_low.errors" class="invalid-feedback">
+        <div *ngIf="f.file_low.errors.required">Image_low is required</div>
+      </div>
+    </div>
+
+    <div>
+      <input nbInput fullWidth shape="round" required id="name" type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+      <label for="name">Name <span aria-hidden="true">*</span></label>
+      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+        <div *ngIf="f.name.errors.required">Name is required</div>
+      </div>
+    </div>
+
+    <div class="hidden">
+      <input nbInput fullWidth shape="round" id="fileName" type="text" formControlName="fileName">
+      <label for="fileName">fileName <span aria-hidden="true">*</span></label>
+    </div>
+    <div class="hidden">
+      <input nbInput fullWidth shape="round" required id="fileURL" type="text" formControlName="fileURL">
+      <label for="fileURL">fileURL <span aria-hidden="true">*</span></label>
+    </div>
+
+    <div class="hidden">
+      <input nbInput fullWidth shape="round" id="fileName_low" type="text" formControlName="fileName_low">
+      <label for="fileName_low">fileName_low <span aria-hidden="true">*</span></label>
+    </div>
+    <div class="hidden">
+      <input nbInput fullWidth shape="round" required id="fileURL_low" type="text" formControlName="fileURL_low">
+      <label for="fileURL_low">fileURL_low <span aria-hidden="true">*</span></label>
+    </div>
+
+    <div class="invalid-feedback">
+      <span> {{ sizeLimit }} </span>
+    </div>
+    <div class="invalid-feedback">
+      <span> {{ isTypesupported }} </span>
+    </div>
+    <div class="invalid-feedback">
+      <span> {{ queryError }} </span>
+    </div>
+
+    <button [nbSpinner]="loadingSpinner" nbSpinnerSize="medium" nbSpinnerStatus="danger" nbButton shape="round" size="medium" status="success" type="submit" [disabled]="form.invalid">
+      <span *ngIf="loadingSpinner === false">Save</span>
+      <span *ngIf="loadingSpinner === true" [nbSpinner]="loadingSpinner">Loading...</span>
+    </button>
+  </form>
+</div>
