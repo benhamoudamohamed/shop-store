@@ -1,0 +1,28 @@
+<app-spinner *ngIf="loadingSpinner === true"></app-spinner>
+
+<div *ngIf="loadingSpinner === false; user">
+  <nb-card>
+    <nb-card-header>
+      <h3>{{ user.firstname }}</h3>
+    </nb-card-header>
+    <nb-card-body>
+      <table class="tableStyle">
+        <tr>
+          <th>lastname</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Created Date</th>
+        <tr>
+          <td>{{ user.lastname }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.userRole }}</td>
+          <td>{{ user.created | date }}</td>
+        </tr>
+      </table>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton shape="rectangle" outline status="success" size="medium" (click)="update(user.id)"><nb-icon icon="edit-2-outline"></nb-icon></button>
+      <button nbButton shape="rectangle" outline status="success" size="medium" (click)="delete(user.id)"><nb-icon icon="trash-2-outline"></nb-icon></button>
+    </nb-card-footer>
+  </nb-card>
+</div>

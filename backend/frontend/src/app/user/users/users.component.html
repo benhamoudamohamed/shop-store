@@ -1,0 +1,41 @@
+<app-spinner *ngIf="loadingSpinner === true"></app-spinner>
+
+<div *ngIf="loadingSpinner === false">
+  <h2 *ngIf="tableDataSource.length === 0">No users yet</h2>
+
+  <nb-card class="tableStyle" *ngIf="tableDataSource">
+    <nb-card-body>
+      <div class="table-header">
+        <input nbInput [(ngModel)]="searchedKeyword" placeholder="Search..." id="search" class="search-input">
+        <button nbButton shape="semi-round" outline status="success" size="medium" (click)="create()"><nb-icon icon="plus-square-outline"></nb-icon></button>
+      </div>
+      <table [nbTreeGrid]="tableDataSource" [dataSource]="tableDataSource | filter:searchedKeyword | paginate: { itemsPerPage: size, currentPage: currentPage, totalItems: totalItems }">
+        <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="columnsItems"></tr>
+        <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: columnsItems"></tr>
+
+        <ng-container nbTreeGridColumnDef="id">
+          <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>#</th>
+          <td nbTreeGridCell *nbTreeGridCellDef="let row; let index=index">{{index+1}}</td>
+        </ng-container>
+
+        <ng-container nbTreeGridColumnDef="name">
+          <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Name</th>
+          <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.firstname}}</td>
+        </ng-container>
+
+        <ng-container nbTreeGridColumnDef="userRole">
+          <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>Role</th>
+          <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.userRole}}</td>
+        </ng-container>
+
+        <ng-container nbTreeGridColumnDef="view">
+          <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>View</th>
+          <td nbTreeGridCell *nbTreeGridCellDef="let row" (click)="view(row.id)"><nb-icon icon="eye-outline"></nb-icon></td>
+        </ng-container>
+      </table>
+    </nb-card-body>
+    <nb-card-footer class="pagination">
+      <pagination-controls maxSize="9" responsive="true" (pageChange)="getPage(currentPage = $event)"></pagination-controls>
+    </nb-card-footer>
+  </nb-card>
+</div>

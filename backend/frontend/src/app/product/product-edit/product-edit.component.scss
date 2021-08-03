@@ -1,0 +1,105 @@
+.centerElement {
+  margin: 0% 25%;
+  width: 50%;
+}
+
+label {
+  direction: ltr;
+  text-align: left;
+  margin: 0% 3%;
+}
+
+input {
+  direction: ltr;
+  text-align: left;
+  margin: 1% 0%;
+}
+
+.titlecenter {
+  text-align: center;
+  justify-content: center;
+  margin: 5% 30%;
+}
+
+form button {
+  text-align: center;
+  justify-content: center;
+  margin: 3% 40%;
+}
+.invalid-feedback {
+  text-align: left;
+  margin: 2% 0 2% 2%;
+}
+.hidden {
+  display: none !important;
+}
+
+// Floating Label
+input, label {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+label {
+  display: inline-block;
+  margin: 0px 15px;
+  padding: 0 0 5px 0;
+  top: -37px;
+  transition: all 0.5s ease-in-out;
+  z-index: 1;
+}
+input[type]:focus + label,
+input[type]:required + label,
+input[type]:valid + label {
+  top: -70px;
+  font-size: 0.8em;
+}
+.hidden {
+  display: none !important;
+}
+
+.ng-select {
+  color: black;
+}
+.ng-select::ng-deep .ng-placeholder::before {
+  content: "Select Item or Search...";
+  color: black;
+  margin-left: 20%;
+  text-align: center;
+}
+
+nb-card-body.example-items-rows {
+  align-items: center;
+}
+nb-checkbox:not(:only-child) {
+  margin-right: 1.5rem;
+}
+.topMargin {
+  margin-top: 2%;
+}
+
+@media screen and (max-width: 600px) {
+  .centerElement {
+    margin: 0% 0%;
+    width: 100%;
+    font-size: 9px;
+  }
+
+  .titlecenter {
+    text-align: center;
+    justify-content: center;
+    margin: 10% 0%;
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 600px) {
+  .centerElement {
+    margin: 0% 25%;
+    width: 50%;
+  }
+  .titlecenter {
+    text-align: center;
+    justify-content: center;
+    margin: 10% 20%;
+  }
+}

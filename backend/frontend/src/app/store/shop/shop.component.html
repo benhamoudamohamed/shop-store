@@ -1,0 +1,19 @@
+<app-spinner *ngIf="loadingSpinner === true"></app-spinner>
+
+<div *ngIf="loadingSpinner === false">
+  <h2 *ngIf="categories.length === 0">No categories yet</h2>
+
+  <div *ngIf="categories.length !== 0">
+    <div class="container">
+      <nb-card style="background-color: #25373c; color: antiquewhite;" class="flex-item" *ngFor="let category of categories">
+        <nb-card-header style="color: antiquewhite;">{{category.name}}</nb-card-header>
+        <nb-card-body>
+          <div class="img-hover-zoom">
+             <source [attr.defaultImage]="category.fileURL_low" [attr.lazyLoad]="category.fileURL"/>
+             <img (click)="onClick(category.id)" [defaultImage]="category.fileURL_low" [lazyLoad]="category.fileURL" [useSrcset]="true"/>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

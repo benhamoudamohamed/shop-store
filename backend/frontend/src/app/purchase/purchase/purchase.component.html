@@ -1,0 +1,84 @@
+<app-spinner *ngIf="loadingSpinner === true"></app-spinner>
+
+<div *ngIf="loadingSpinner === false; purchase">
+  <nb-card>
+    <nb-card-header style="position: relative; color: black;">
+      <h5>Client: {{purchase.clientName}}</h5>
+      <nb-badge [text]="'#ID: ' + purchase.id" style="background-color: #685b43; color: antiquewhite;" position="top left"></nb-badge>
+      <nb-badge [text]="purchase.created | date" style="background-color: #685b43; color: antiquewhite;" position="top right"></nb-badge>
+    </nb-card-header>
+
+    <nb-card-body>
+      <table class="tableStyle">
+        <tr>
+          <th class="flex-item10">Product Name</th>
+          <th class="flex-item10">Image</th>
+          <th class="flex-item5">Price</th>
+          <th class="flex-item5">Quantity</th>
+          <th class="flex-item5">Cost</th>
+        </tr>
+        <tr *ngFor="let item of purchase.items">
+          <td>{{ item.productName }}</td>
+          <td>
+            <img width="500" height="500" [src]="item.image" alt="{{ item.image }}" onError="this.src='http://localhost:3000/api/upload/imagenotfound.jpg'">
+          </td>
+          <td>{{ item.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.cost }}</td>
+        </tr>
+      </table>
+      <div class="grid-container">
+        <div class="item-center">
+          <table>
+            <tr>
+              <th><p>Sub total:</p></th>
+            </tr>
+            <tr>
+              <th><p>Disount: </p></th>
+            </tr>
+            <tr>
+              <th><p>Grand Total:</p></th>
+            </tr>
+          </table>
+        </div>
+        <div class="item-right">
+          <table>
+            <tr>
+              <td>
+                <p>{{ purchase.subtotal }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>{{ purchase.discount }}%</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>{{ purchase.grandTotal }}</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <table class="tableStyle">
+        <tr>
+          <th class="flex-item20">Client Name</th>
+          <th class="flex-item20">Email</th>
+          <th class="flex-item20">Phone</th>
+          <th class="flex-item20">Address</th>
+        </tr>
+        <tr>
+          <td>{{ purchase.clientName }}</td>
+          <td>{{ purchase.email }}</td>
+          <td>{{ purchase.phone }}</td>
+          <td>{{ purchase.address }}</td>
+        </tr>
+      </table>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton shape="rectangle" outline status="success" size="medium" (click)="delete(purchase.id)"><nb-icon icon="trash-2-outline"></nb-icon></button>
+    </nb-card-footer>
+  </nb-card>
+</div>

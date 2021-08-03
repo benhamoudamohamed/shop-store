@@ -1,0 +1,152 @@
+<div class="headerPage" *ngIf="products.length === 0">
+  <h2>Your Cart is Empty</h2>
+  <button nbButton shape="round" size="small" style="background-color: #685b43; color: antiquewhite;" routerLink="/store/shop">Return To Shop</button>
+</div>
+
+<div *ngIf="products.length !== 0">
+  <form [formGroup]="invoiceForm" novalidate>
+    <nb-card >
+      <nb-card-header>Your Shopping Cart</nb-card-header>
+      <nb-card-body>
+        <table class="tableStyle">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Cost</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody formArrayName="items">
+            <tr *ngFor="let item of invoiceForm.get('items')['controls']; let i = index;" [formGroupName]="i">
+              <th class="flex-item5">{{i + 1}}</th>
+              <td class="flex-item20"><img src="{{invoiceForm.controls['items'].controls[i].controls['image'].value}}"></td>
+              <td class="flex-item10">
+                {{invoiceForm.controls['items'].controls[i].controls['productName'].value}}
+              </td>
+              <td class="flex-item10">
+                {{invoiceForm.controls['items'].controls[i].controls['price'].value}}
+              </td>
+              <td class="flex-item20">
+                <nb-form-field>
+                  <button nbSuffix nbButton ghost (click)="changeQuantity(i, fasle)">
+                    <nb-icon icon="minus-square-outline"></nb-icon>
+                  </button>
+                  <input nbInput type="number" formControlName="quantity" name="quantity" value="{{quantity}}">
+                  <button nbSuffix nbButton ghost (click)="changeQuantity(i, true)">
+                    <nb-icon icon="plus-square-outline"></nb-icon>
+                  </button>
+                </nb-form-field>
+              </td>
+              <td class="flex-item10">
+                <input nbInput class="hidden" type="number" formControlName="cost"  name="cost" value="{{invoiceForm.controls['items'].controls[i].controls['price'].value * invoiceForm.controls['items'].controls[i].controls['quantity'].value}}">
+                {{invoiceForm.controls['items'].controls[i].controls['price'].value * invoiceForm.controls['items'].controls[i].controls['quantity'].value}}
+              </td>
+              <td class="flex-item5">
+                <button nbButton shape="round" size="small" style="background-color: #ff3d71;">
+                  <nb-icon (click)="removeItem(i)" icon="trash-2-outline"></nb-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="grid-container">
+          <div class="item-left">
+            <table>
+              <tr>
+                <th>
+                  <p><input class="coupon1" nbInput type="text" formControlName="coupon" name="coupon" placeholder="Coupon" minlength=6 maxlength=8></p>
+                  <p>{{message}}</p>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <p><button nbButton shape="round" size="small" style="background-color: #685b43; color: antiquewhite;" (click)="setCodePromo()">Apply</button></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="item-center">
+            <table>
+              <tr>
+                <th [ngClass]="invoiceForm.controls['discount'].value === 0 ? 'hidden' : ''"><p>Sub total:</p></th>
+              </tr>
+              <tr [ngClass]="invoiceForm.controls['discount'].value === 0 ? 'hidden' : ''">
+                <th><p>Disount: {{invoiceForm.controls['discount'].value}}%</p></th>
+              </tr>
+              <tr>
+                <th><p>Grand Total:</p></th>
+              </tr>
+            </table>
+          </div>
+          <div class="item-right">
+            <table>
+              <tr>
+                <td [ngClass]="invoiceForm.controls['discount'].value === 0 ? 'hidden' : ''">
+                  <input nbInput class="hidden" type="number" formControlName="subtotal" name="subtotal" value="{{subTotal}}">
+                  <p>{{subTotal}}</p>
+                </td>
+              </tr>
+              <tr [ngClass]="invoiceForm.controls['discount'].value === 0 ? 'hidden' : ''">
+                <td>
+                  <input class="hidden" nbInput type="number" formControlName="discount" name="discount" value="{{discount}}">
+                  <p>{{(invoiceForm.controls['discount'].value/100 * subTotal).toFixed(2)}}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input nbInput class="hidden" type="number" formControlName="grandTotal" name="grandTotal" value="{{(subTotal - invoiceForm.controls['discount'].value/100 * subTotal)}}">
+                  <p>{{(subTotal - invoiceForm.controls['discount'].value/100 * subTotal)}}</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="userForm">
+          <div>
+            <input nbInput fullWidth shape="round" required id="clientName" type="text" formControlName="clientName" name="clientName" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.clientName.errors }">
+            <div *ngIf="submitted && f.clientName.errors" class="invalid-feedback">
+              <div *ngIf="f.clientName.errors.required">Name is required</div>
+              <div *ngIf="f.clientName.errors">Name min length 4 characters</div>
+            </div>
+          </div>
+          <div>
+            <input nbInput fullWidth shape="round" id="phone" type="text" formControlName="phone" name="phone" placeholder="Phone" minlength=8 maxlength=12 (keypress)="keyPress($event)" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+            <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+              <div *ngIf="f.phone.errors.required">Phone is required</div>
+              <div *ngIf="f.phone.errors">Phone Number must be between 8 and 13 digit</div>
+            </div>
+          </div>
+          <div>
+            <input nbInput fullWidth shape="round" required id="email" type="text" formControlName="email" name="email" placeholder="Email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors">Please add a valid email address</div>
+            </div>
+          </div>
+          <div>
+            <input nbInput fullWidth shape="round" required id="address" type="text" formControlName="address" name="address" placeholder="Address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
+            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+              <div *ngIf="f.address.errors.required">Address is required</div>
+              <div *ngIf="f.message.errors">Message min length 4 characters</div>
+            </div>
+          </div>
+
+          <div class="invalid-feedback">
+            <span> {{ queryError }} </span>
+          </div>
+          <button [nbSpinner]="loadingSpinner" nbSpinnerSize="medium" nbSpinnerStatus="danger" nbButton shape="round" size="medium" style="background-color: #5e7073; color: antiquewhite;" type="submit" (click)="onSubmit()">
+            <span *ngIf="loadingSpinner === false"><nb-icon icon="paper-plane-outline"></nb-icon> Send</span>
+            <span *ngIf="loadingSpinner === true" [nbSpinner]="loadingSpinner">Loading...</span>
+          </button>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</div>
