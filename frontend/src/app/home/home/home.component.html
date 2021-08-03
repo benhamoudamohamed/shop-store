@@ -1,0 +1,20 @@
+<nb-layout>
+  <nb-layout-header fixed>
+    <a href="#" (click)="toggle()"><nb-icon icon="menu"></nb-icon><i class="nb-menu"></i></a>
+    <span class="example-spacer"></span>
+
+    <nb-user class="buttonUser" *ngIf="this.firstname" [name]="firstname" [title]="userRole"></nb-user>
+
+    <div class="buttonUser">
+      <button nbButton shape="round" outline status="info" size="medium" (click)="logout()"><nb-icon icon="log-out-outline"></nb-icon> Logout</button>
+    </div>
+  </nb-layout-header>
+
+  <nb-sidebar responsive="true">
+    <nb-menu [items]="items" autoCollapse="true"></nb-menu>
+  </nb-sidebar>
+
+  <nb-layout-column class="colored-column-basic">
+    <router-outlet name="root"></router-outlet>
+  </nb-layout-column>
+</nb-layout>

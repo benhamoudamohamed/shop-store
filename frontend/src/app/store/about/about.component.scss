@@ -1,0 +1,18 @@
+.about {
+  text-align: center;
+  width: 50%;
+  margin: 5% auto;
+}
+h4 {
+  margin: 5% auto;
+}
+.about p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+@media only screen and (max-width: 600px) {
+  .about {
+    width: 100%;
+    margin: 10% auto;
+  }
+}

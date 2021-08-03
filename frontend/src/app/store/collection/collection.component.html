@@ -1,0 +1,28 @@
+<app-spinner *ngIf="loadingSpinner === true"></app-spinner>
+<div *ngIf="loadingSpinner === false">
+  <h2 *ngIf="products.length === 0">No products yet</h2>
+
+  <div *ngIf="products.length !== 0">
+    <div class="container">
+      <nb-card style="background-color: #25373c; color: antiquewhite;" class="flex-item" *ngFor="let product of products">
+        <nb-card-header style="position: relative; color: antiquewhite;">
+          {{product.name}}
+          <nb-badge [text]="product.productCode" style="background-color: #685b43; color: antiquewhite;" position="top left"></nb-badge>
+          <nb-badge *ngIf="product.isAvailable === false" text="Out Of Stock" status="danger" position="top right"></nb-badge>
+        </nb-card-header>
+        <nb-card-body>
+          <div class="img-hover-zoom">
+            <source [attr.defaultImage]="product.fileURL_low" [attr.lazyLoad]="product.fileURL"/>
+            <img [defaultImage]="product.fileURL_low" [lazyLoad]="product.fileURL" [useSrcset]="true"/>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <span style="color: antiquewhite;">{{product.price}} TND</span>
+        </nb-card-footer>
+        <nb-card-footer>
+          <button nbButton fullWidth shape="semi-round" [ngStyle]="{'background-color':product.isAvailable === false ? '#ff3d71' : '#5e7073' }" size="medium" (click)="addTocart(product.id, true)" [disabled]="product.isAvailable === false"><nb-icon icon="shopping-cart-outline"></nb-icon></button>
+        </nb-card-footer>
+      </nb-card>
+    </div>
+  </div>
+</div>

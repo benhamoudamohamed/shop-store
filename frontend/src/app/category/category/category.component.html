@@ -1,0 +1,43 @@
+<app-spinner *ngIf="loadingSpinner === true"></app-spinner>
+
+<div *ngIf="loadingSpinner === false; category">
+  <nb-card>
+    <nb-card-header>
+      <img width="100" height="100" src="{{category.fileURL}}" alt="{{category.fileName}}">
+    </nb-card-header>
+    <nb-card-body>
+      <table class="tableStyle">
+        <tr>
+          <th>Name</th>
+          <th>Created Date</th>
+        <tr>
+          <td>{{ category.name }}</td>
+          <td>{{ category.created | date }}</td>
+        </tr>
+      </table>
+
+      <div *ngIf="category.products.length != 0">
+        <h3>product List</h3>
+
+        <table class="tableStyle">
+          <tr>
+            <th>ID</th>
+            <th>name</th>
+            <th>Date</th>
+            <th>View</th>
+          <tr *ngFor="let product of category.products">
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.created | date }}</td>
+            <td><span (click)="view(product.id)"><nb-icon icon="eye-outline"></nb-icon></span></td>
+          </tr>
+        </table>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton shape="rectangle" outline status="success" size="medium" (click)="update(category.id)"><nb-icon icon="edit-2-outline"></nb-icon></button>
+      <button nbButton shape="rectangle" outline status="success" size="medium" (click)="delete(category.id)"><nb-icon icon="trash-2-outline"></nb-icon></button>
+    </nb-card-footer>
+  </nb-card>
+</div>

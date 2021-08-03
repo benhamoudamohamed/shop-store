@@ -1,0 +1,14 @@
+@import 'themes';
+@import '~@nebular/theme/styles/globals';
+@include nb-install() {
+  @include nb-theme-global();
+};
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~swiper/swiper-bundle';
+
+html, body { height: 100%; }
+* {
+  font-family: Karla, sans-serif !important;
+  margin: 0 0;
+  color: black;
+}
